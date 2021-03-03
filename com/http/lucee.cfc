@@ -16,7 +16,8 @@ component {
         struct headers = { },
         any body,
         boolean useSSL = true,
-        numeric timeout = 50
+        numeric timeout = 50,
+		string asBinary = "auto"
     ) {
         var result = '';
         var fullPath = path & ( !queryParams.isEmpty() ? ( '?' & utils.parseQueryParams( queryParams ) ) : '' );
@@ -30,7 +31,8 @@ component {
             encodeurl=false
             timeout=timeout
             proxyServer=httpProxy.server
-            proxyPort=httpProxy.port {
+            proxyPort=httpProxy.port
+            getasbinary=asBinary {
             for ( var header in request_headers ) {
                 if ( header.name == 'host' ) continue;
                 httpparam type="header" name=lCase( header.name ) value=header.value;

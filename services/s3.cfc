@@ -343,11 +343,13 @@ component {
     * @Bucket the name of the bucket containing the object
     * @ObjectKey the object to get
     * @VersionId the specific version of an object to get (if versioning is enabled)
+    * @asBinary returns the object as binary?
     */
     public any function getObject(
         required string Bucket,
         required string ObjectKey,
-        string VersionId = ''
+        string VersionId = '',
+        string asBinary = 'auto'
     ) {
         var requestSettings = api.resolveRequestSettings( argumentCollection = arguments );
         var queryParams = { };
@@ -356,7 +358,10 @@ component {
             requestSettings,
             'GET',
             '/' & Bucket & '/' & ObjectKey,
-            queryParams
+            queryParams,
+			{},
+			'',
+			asBinary
         );
     }
 
@@ -736,7 +741,8 @@ component {
         string path = '/',
         struct queryParams = { },
         struct headers = { },
-        any payload = ''
+        any payload = '',
+		string asBinary = "auto"
     ) {
         var host = getHost( requestSettings.region );
 
@@ -759,7 +765,8 @@ component {
             payload,
             requestSettings.awsCredentials,
             false,
-            useSSL
+            useSSL,
+			asBinary
         );
     }
 

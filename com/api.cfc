@@ -53,7 +53,8 @@ component accessors="true" {
         any body = '',
         struct awsCredentials = { },
         boolean encodeurl = true,
-        boolean useSSL = true
+        boolean useSSL = true,
+		string asBinary = "auto"
     ) {
         if ( awsCredentials.isEmpty() ) {
             awsCredentials = credentials.getCredentials();
@@ -80,6 +81,7 @@ component accessors="true" {
         httpArgs[ 'headers' ] = signedRequestHeaders;
         httpArgs[ 'queryParams' ] = queryParams;
         httpArgs[ 'useSSL' ] = useSSL;
+		httpArgs[ 'asBinary' ] = asBinary;
         if ( !isNull( arguments.body ) ) httpArgs[ 'body' ] = body;
         // writeDump( httpArgs );
 
